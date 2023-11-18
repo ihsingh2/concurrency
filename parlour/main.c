@@ -8,7 +8,9 @@ machine_t* M;
 flavour_t* F;
 topping_t* T;
 list_t* C;
-pthread_cond_t cond;
+#ifdef PRIORITY
+  pthread_cond_t cond;
+#endif
 pthread_mutex_t mutex;
 barrier_t barrier;
 #define timer get_epoch(&barrier)
@@ -73,7 +75,9 @@ int main(void)
   // 2: simulate
   waiting = 0;
   terminate = 0;
+#ifdef PRIORITY
   pthread_cond_init(&cond, NULL);
+#endif
   pthread_mutex_init(&mutex, NULL);
 #ifdef SIM
   barrier_init(&barrier, n + c, 4, 1);
@@ -99,7 +103,9 @@ int main(void)
   free(F);
   free(T);
   list_free_rec(C);
+#ifdef PRIORITY
   pthread_cond_destroy(&cond);
+#endif
   pthread_mutex_destroy(&mutex);
   barrier_destroy(&barrier);
 
@@ -115,23 +121,26 @@ void* machine(void *arg)
     switch (mc->st)
     {
       case INVALID:
-        if (timer >= mc->start) {
-          mc->st = CHECK;
-          printf(ORANGE "Machine %d has started working at %d second(s)" RESET "\n", mc->id, timer);
-        }
-        else
+        if (timer < mc->start)
           break;
+        mc->st = CHECK;
+        printf(ORANGE "Machine %d has started working at %d second(s)" RESET "\n", mc->id, timer);
 
       case CHECK:
         if (timer >= mc->stop) {
           mc->st = LEFT;
+#ifdef PRIORITY
+          pthread_cond_broadcast(&cond);
+#endif
           printf(ORANGE "Machine %d has stopped working at %d second(s)" RESET "\n", mc->id, timer);
           break;
         }
         pthread_mutex_lock(&mutex);
+#ifdef PRIORITY
         for (machine_t* mcptr = M; mcptr < M + mc->id - 1; mcptr++)
           while ((mcptr->st == INVALID && mcptr->start == timer) || mcptr->st == CHECK)
             pthread_cond_wait(&cond, &mutex);
+#endif
 
         node_t *csptr = C->head->next;
         while (csptr != C->head) {
@@ -163,7 +172,9 @@ void* machine(void *arg)
                         csptr->cs->nrem--;
                         mc->st = SERVING;
                         pthread_mutex_unlock(&mutex);
+#ifdef PRIORITY
                         pthread_cond_broadcast(&cond);
+#endif
                         mc->csid = csptr->cs->id;
                         mc->ordid = i;
                         mc->ctime = timer + fptr->prep;
@@ -181,7 +192,9 @@ nextcs:
         }
         mc->st = IDLE;
         pthread_mutex_unlock(&mutex);
+#ifdef PRIORITY
         pthread_cond_broadcast(&cond);
+#endif
         break;
 
       case SERVING:
@@ -276,7 +289,6 @@ void* customer(void *arg)
             printf(RED "Customer %d failed to enter and left at %d second(s)" RESET "\n", cs->id, timer);
           }
         }
-        
         break;
 
       case SERVED:

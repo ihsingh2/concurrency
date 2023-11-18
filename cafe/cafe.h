@@ -8,14 +8,7 @@
 #include <pthread.h>
 #include <semaphore.h>
 #include "../common/barrier.h"
-
-#define RED "\e[0;91m"
-#define GREEN "\e[0;32m"
-#define YELLOW "\e[0;93m"
-#define BLUE "\e[0;94m"
-#define MAGENTA "\e[0;95m"
-#define CYAN "\e[0;96m"
-#define RESET "\e[0;0m"
+#include "../common/colors.h"
 
 // barista
 #define CHECK 0

@@ -7,7 +7,9 @@ int terminate;
 barista_t* B;
 coffee_t* CF;
 customer_t* CS;
-pthread_cond_t cond;
+#ifdef PRIORITY
+  pthread_cond_t cond;
+#endif
 pthread_mutex_t mutex;
 barrier_t barrier;
 #define timer get_epoch(&barrier)
@@ -38,7 +40,9 @@ int main(void)
   // 2: simulate
   wasted = 0;
   terminate = 0;
+#ifdef PRIORITY
   pthread_cond_init(&cond, NULL);
+#endif
   pthread_mutex_init(&mutex, NULL);
 #ifdef SIM
   barrier_init(&barrier, b + n, 3, 1);
@@ -72,7 +76,9 @@ int main(void)
   free(B);
   free(CF);
   free(CS);
+#ifdef PRIORITY
   pthread_cond_destroy(&cond);
+#endif
   pthread_mutex_destroy(&mutex);
   barrier_destroy(&barrier);
 
@@ -112,9 +118,11 @@ void* barista(void* arg)
 
       case CHECK:
         pthread_mutex_lock(&mutex);
+#ifdef PRIORITY
         for (barista_t *brptr = B; brptr < B + br->id - 1; brptr++)
           while (brptr->st == CHECK)
             pthread_cond_wait(&cond, &mutex);
+#endif
 
         for (customer_t* csptr = CS; csptr < CS + n; csptr++)
           if (csptr->st == ARRIVED) {
@@ -125,7 +133,9 @@ void* barista(void* arg)
             printf(CYAN "Barista %d begins preparing the order of customer %d at %d second(s)" RESET "\n", br->id, br->csid, timer);
 
             pthread_mutex_unlock(&mutex);
+#ifdef PRIORITY
             pthread_cond_broadcast(&cond);
+#endif
 
             br->ctime = timer + 1;  // if coffee not found, assume ctime to be +1 to avoid infinite wait
             for (coffee_t* cfptr = CF; cfptr < CF + k; cfptr++) {
@@ -140,7 +150,9 @@ void* barista(void* arg)
         if (br->st == CHECK) {
           br->st = IDLE;
           pthread_mutex_unlock(&mutex);
+#ifdef PRIORITY
           pthread_cond_broadcast(&cond);
+#endif
         }
 
       default:
