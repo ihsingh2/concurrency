@@ -268,6 +268,7 @@ void* customer(void *arg)
     {
       case INVALID:
         if (timer >= cs->arr) {
+          // TODO: PRIORITY
           pthread_mutex_lock(&mutex);
           if (waiting < k) {
             waiting++;

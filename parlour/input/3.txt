@@ -1,0 +1,28 @@
+3 3 3 4
+0 7
+4 10
+6 15
+vanilla 1
+chocolate 4
+blueberry 4
+sprinkles -1
+syrup -1
+almonds 2
+cookies 2
+1 0 2
+vanilla almonds sprinkles cookies 
+chocolate cookies sprinkles
+2 0 1
+blueberry sprinkles
+3 2 2
+chocolate cookies syrup
+blueberry
+4 3 2
+vanilla syrup almonds
+chocolate cookies almonds
+5 7 1
+blueberry almonds
+6 7 1
+vanilla almonds
+7 8 1
+vanilla almonds
