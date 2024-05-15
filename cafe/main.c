@@ -163,7 +163,7 @@ void* barista(void* arg)
         if (br->st == IDLE)
             br->st = CHECK;
         await(&barrier);
-        
+
         // 3: termination check phase
         if (br->id == 1) {
             int flag1 = 1, flag2 = 1;

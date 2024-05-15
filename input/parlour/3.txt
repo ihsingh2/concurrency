@@ -10,7 +10,7 @@ syrup -1
 almonds 2
 cookies 2
 1 0 2
-vanilla almonds sprinkles cookies 
+vanilla almonds sprinkles cookies
 chocolate cookies sprinkles
 2 0 1
 blueberry sprinkles

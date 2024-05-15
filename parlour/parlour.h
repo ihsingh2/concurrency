@@ -10,7 +10,7 @@
 #include "barrier.h"
 #include "colors.h"
 
-// machine 
+// machine
 #define CHECK 1
 #define IDLE 2
 #define SERVING 3

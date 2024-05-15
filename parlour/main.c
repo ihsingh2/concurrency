@@ -31,7 +31,7 @@ int main(void)
     F = (flavour_t*) calloc(k, sizeof(flavour_t));
     for (flavour_t* ptr = F; ptr < F + f; ptr++)
         scanf("%s %d", ptr->name, &ptr->prep);
-    
+
     T = (topping_t*) calloc(t, sizeof(topping_t));
     for (topping_t* ptr = T; ptr < T + t; ptr++)
         scanf("%s %d\n", ptr->name, &ptr->quant);
@@ -298,7 +298,7 @@ void* customer(void *arg)
                 pthread_mutex_unlock(&mutex);
                 printf(GREEN "Customer %d has collected their order(s) and left at %d second(s)" RESET "\n", cs->id, timer);
                 break;
-            
+
             case SHORTAGE:
                 cs->st = LEFT;
                 pthread_mutex_lock(&mutex);

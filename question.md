@@ -22,9 +22,9 @@ You have been given the task to simulate the operation of a small cafe. The cafe
 - If a customer arrives at time `t`, and they have tolerance time `tol` => they collect their order only if it gets done on or before `t + tol`.
 - Once an order is completed, the customer picks it up and leaves instantaneously.
 - If a customer was already waiting, once a barista finishes their previous order, say at time `t`, they can start making the order of the waiting customer at time `t+1`.
-- The cafe has infinite seating capacity. 
+- The cafe has infinite seating capacity.
 
-Your simulation should utilize multi-threading concepts and avoid potential issues like deadlocks and busy waiting. Implement the problem using semaphores and mutex locks to ensure thread safety. Make sure to colour code your output using the specified colours. 
+Your simulation should utilize multi-threading concepts and avoid potential issues like deadlocks and busy waiting. Implement the problem using semaphores and mutex locks to ensure thread safety. Make sure to colour code your output using the specified colours.
 
 #### Input format (all space separated):
 The first line contains  `B K N`
@@ -83,8 +83,8 @@ Sunny's Ice Cream Parlor is renowned for its delectable ice cream creations and 
 #### During the simulation:
 
 - There are `N` ice cream machines.
-- Every ice cream machine `m` works from time `tm_start` to time `tm_stop`. 
- 
+- Every ice cream machine `m` works from time `tm_start` to time `tm_stop`.
+
 - There are `F` ice cream flavours
 - Every ice cream flavour `f` takes unique time `t_f` to prepare.
 
@@ -101,7 +101,7 @@ Sunny's Ice Cream Parlor is renowned for its delectable ice cream creations and 
 - If a customer's order can only be partially completed, they must be rejected completely, no part of their order should waste ingredients.
 - If a customer leaves due to ingredient shortages, they leave the second they're informed (at `t`), and their spot becomes free from the next second i.e. `t+1`.
 - Once an entire order is completed, the customer picks it up and leaves instantaneously.
-- A machine cannot start preparing an order if it will have to stop working in the middle of that order. 
+- A machine cannot start preparing an order if it will have to stop working in the middle of that order.
 - If a machine starts working at time `t`, and a customer was already waiting since some time `<t`, the machine can instantly start preparing their order.
 
 
@@ -114,7 +114,7 @@ Here's a structured breakdown of the scenario:
 
 2. Ice Cream Varieties:
     - Sunny offers an assortment of ice cream flavors, each with its own preparation time and ingredient requirements.
-    - Some ingredients, like vanilla and chocolate syrup, are available in abundance, while others, such as fresh fruits and whipped cream, are limited for the day. 
+    - Some ingredients, like vanilla and chocolate syrup, are available in abundance, while others, such as fresh fruits and whipped cream, are limited for the day.
     - If all limited ingredients are depleted, the parlor closes for the day.
 
 3. Customers:
@@ -123,7 +123,7 @@ Here's a structured breakdown of the scenario:
     - If an order can be fulfilled, customers must wait for their ice creams to be prepared and brought to the pickup spot.
 
 
-Your simulation should utilize multi-threading concepts and avoid potential issues like deadlocks and busy waiting. Make sure to colour code your output using the specified colours. 
+Your simulation should utilize multi-threading concepts and avoid potential issues like deadlocks and busy waiting. Make sure to colour code your output using the specified colours.
 
 
 #### Input format (everything is space separated):
@@ -140,7 +140,7 @@ The rest of the lines will have the structure
 
 #### Output format:
 - When a customer`c` enters at time `t`, print [white colour] `Customer c enters at t second(s)`
-- Print their order [yellow colour]: 
+- Print their order [yellow colour]:
 ```
 Customer c orders 2 ice creams
 Ice cream 1: vanilla caramel

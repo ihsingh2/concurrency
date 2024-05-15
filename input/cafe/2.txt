@@ -1,6 +1,6 @@
 3 4 5
 Expresso 3
-Cappuccino 10 
+Cappuccino 10
 Latte 5
 Mocha 5
 1 Expresso 0 5
