@@ -7,8 +7,8 @@
 #include <string.h>
 #include <pthread.h>
 #include <semaphore.h>
-#include "../common/barrier.h"
-#include "../common/colors.h"
+#include "barrier.h"
+#include "colors.h"
 
 // machine 
 #define CHECK 1
@@ -27,50 +27,50 @@
 #define LEFT 9
 
 typedef struct __machine {
-  int id;
-  int start;
-  int stop;
-  int st;
-  int csid;
-  int ordid;
-  int ctime;
+    int id;
+    int start;
+    int stop;
+    int st;
+    int csid;
+    int ordid;
+    int ctime;
 } machine_t;
 
 typedef struct __flavour {
-  char name[64];
-  int prep;
+    char name[64];
+    int prep;
 } flavour_t;
 
 typedef struct __topping {
-  char name[64];
-  int quant;
+    char name[64];
+    int quant;
 } topping_t;
 
 typedef struct __order {
-  char flav[64];
-  int ntop;
-  char* top;
-  int st;
+    char flav[64];
+    int ntop;
+    char* top;
+    int st;
 } order_t;
 
 typedef struct __customer {
-  int id;
-  int arr;
-  int nord;
-  order_t* ord;
-  int st;
-  int nrem;
-  int nwt;
+    int id;
+    int arr;
+    int nord;
+    order_t* ord;
+    int st;
+    int nrem;
+    int nwt;
 } customer_t;
 
 typedef struct __node {
-  customer_t* cs;
-  struct __node* prev;
-  struct __node* next;
+    customer_t* cs;
+    struct __node* prev;
+    struct __node* next;
 } node_t;
 
 typedef struct __list {
-  node_t* head;
+    node_t* head;
 } list_t;
 
 // main.c

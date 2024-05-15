@@ -7,8 +7,8 @@
 #include <string.h>
 #include <pthread.h>
 #include <semaphore.h>
-#include "../common/barrier.h"
-#include "../common/colors.h"
+#include "barrier.h"
+#include "colors.h"
 
 // barista
 #define CHECK 0
@@ -23,24 +23,24 @@
 #define LEFT 7
 
 typedef struct __barista {
-  int id;
-  int st;
-  int csid;
-  int ctime;
+    int id;
+    int st;
+    int csid;
+    int ctime;
 } barista_t;
 
 typedef struct __coffee {
-  char name[64];
-  int prep;
+    char name[64];
+    int prep;
 } coffee_t;
 
 typedef struct __customer {
-  int id;
-  char order[64];
-  int arr;
-  int tol;
-  int st;
-  int wt;
+    int id;
+    char order[64];
+    int arr;
+    int tol;
+    int st;
+    int wt;
 } customer_t;
 
 // main.c
